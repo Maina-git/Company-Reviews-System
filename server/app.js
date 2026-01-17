@@ -7,6 +7,7 @@ import mongooseSanitize from "express-mongo-sanitize";
 import globalErrorHandler from "./controllers/errorController.js";
 import AppError from "./utils/appError.js";
 import companyRouter from "./routes/companyRoutes.js";
+import reviewRouter from "./routes/reviewRoutes.js";
 
 
 const app = express();
@@ -46,6 +47,7 @@ app.use((req, res, next)=>{
     next();
 })
 app.use("/api/v1/companies", companyRouter);
+app.use("/api/v1/reviews", reviewRouter);
 
 app.get("/", (req, res)=>{
     res.status(200).json({status:"success", message:"Just for testing"});

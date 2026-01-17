@@ -20,6 +20,7 @@ try{
 }
 
 connectDB();
+
 const PORT = process.env.PORT;
 app.listen(PORT, ()=>{
 console.log(`App running on port ${PORT}`);
@@ -29,7 +30,7 @@ process.on("unhandleRejection", (err)=>{
     console.log("UNHANDLE REJECTION Shutting down.....");
     console.log(err.name, err.message);
     process.exit(1);
-})
+});
 
 
 

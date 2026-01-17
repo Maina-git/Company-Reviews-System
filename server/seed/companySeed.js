@@ -9,6 +9,8 @@ const connectDB = async () =>{
      console.error(err); } } 
 connectDB(); 
 const banks = [ "Janata Bank", "Sonali Bank", "Rupali Bank", "Agrani Bank", "Islami Bank Bangladesh", "Dutch-Bangla Bank", "BRAC Bank", "Prime Bank", "Eastern Bank", "United Commercial Bank", "Pubali Bank", "National Bank", "Trust Bank", "Southeast Bank", "City Bank", "AB Bank", "Bank Asia", "Mercantile Bank", "Midland Bank", "One Bank" ]; 
+
+
 const addCompanies = async () =>{ 
     try{ await Company.deleteMany(); 
     const formatted = banks.map((name)=>({ name:name.trim(), 
@@ -21,7 +23,7 @@ const addCompanies = async () =>{
         process.exits(); }catch(err){ console.log("Error adding compaines", err); 
         process.exit(1); } }; 
         
-        const deletCompaines = async()=>{ 
+        const deleteCompaines = async()=>{ 
             try{ await Company.deleteMany(); 
                 console.log("All companies deleted Successfully"); 
                 process.exit(1); 
@@ -35,7 +37,7 @@ const addCompanies = async () =>{
             if(arg==="--add"){ 
             await addCompanies() 
         } else if(arg==="--delete"){
-        await deletCompaines(); 
+        await deleteCompaines(); 
       }else{ console.log("Use --arg to add company or --delete to delete company");
       process.exit(0); } } 
       run();

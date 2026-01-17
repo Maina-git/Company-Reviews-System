@@ -1,5 +1,6 @@
 import Company from "../model/companyModel.js";
 import catchAsync from "../utils/catchAsync.js";
+import AppError from "../utils/appError.js";
 
 export const getAllCompanies = catchAsync(async (req, res, next) => {
   const companies = await Company.find().sort({ name: 1 });
@@ -74,7 +75,6 @@ allCompanies = allCompanies.map((company)=>{
 });
 
 // sort based on query
-
 switch(sort){
 case   "review_asc": 
 allCompanies.sort((a, b)=> a.totalReviews - b.totalReviews);
@@ -114,3 +114,37 @@ res.status(200).json({
     }, 
 });
 });
+
+
+export const getCompanyById = catchAsync(async(req, res, next)=>{
+  const {id} = req.params;
+  const company = await Company.findById(id)
+  .populate({
+    path:"reviews"
+  })
+  .lean();
+
+  if(!company)  return next(new AppError("Company not found", 404));
+const {negativeCount, totalReviews} = company;
+const complainRate = totalReviews === 0 ? 0 : parseFloat(((negativeCount / totalReviews) * 100).toFixed(2));
+
+const companywithStats ={
+  ...company,
+  complainRate,
+}
+res.status(200).json({
+  status:"success",
+  message:"Company details",
+  data:{
+    company:companywithStats,
+  },
+});
+}); 
+
+
+
+
+
+
+
+
