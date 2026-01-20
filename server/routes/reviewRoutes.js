@@ -1,7 +1,13 @@
 import  express from "express";
-import { getAllReviews } from "../controllers/reviewController";
+import  {getAllReviews, createStory }  from "../controllers/reviewController.js";
+
 
 const router = express.Router();
 
-router.gwt("/all", getAllReviews);
-module.exports = router;
+router.get("/all", getAllReviews);
+router.post("/create", createStory);
+
+export default router;
+
+
+

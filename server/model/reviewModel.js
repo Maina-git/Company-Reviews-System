@@ -50,5 +50,7 @@ const storySchema =  new mongoose.Schema({
 { timeStamp:true }
 );
 
-module.exports = mongoose.model('Story', storySchema);
+
+export default mongoose.model('Story', storySchema);
+//module.exports = mongoose.model('Story', storySchema);
 
