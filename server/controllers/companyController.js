@@ -15,7 +15,6 @@ export const getAllCompanies = catchAsync(async (req, res, next) => {
 
 export const getAllCompaniesTotalStats = catchAsync(async (req, res, next) => {
   const companies = await Company.find();
-
   const totalCompanies = companies.length;
 
   // calculate total reviews
@@ -139,7 +138,7 @@ res.status(200).json({
     company:companywithStats,
   },
 });
-}); 
+});
 
 
 
