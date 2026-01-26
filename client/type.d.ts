@@ -8,7 +8,7 @@ export type userType =
  | "farmer employee"
  | "investor"
  | "other";
-
+ 
  export  interface Review {
     _id:string;
     vibe:VibeType;
