@@ -2,16 +2,16 @@
 import { Building2, HelpCircle, MenuIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React from 'react';
 import { navigation } from '@/constants';
 import { Button } from '@/components/ui/button';
 
+interface props{
+    openNav:()=>void;
+}
 
 
-const Nav = () => {
-
+const Nav = ({openNav}:props) => {
 const pathname = usePathname();
-
   return (
     <div className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50"> 
       <div className="w-[90%] mx-auto">
@@ -22,7 +22,7 @@ const pathname = usePathname();
          <Building2 className="sm:h-8 sm:w-8 w-6 h-6 text-blue-600"/>
         <span className="sm:text-xl text-lg font-bold text-gray-900">BankReview</span>
          </Link>
-{/* desktop navigation */}
+   {/* desktop navigation */}
              <nav className="hidden lg:flex items-center space-x-1 lg:space-x-4">
 {
     navigation.map((item, index)=>{
@@ -42,7 +42,6 @@ const pathname = usePathname();
     })
 }
 </nav>
-
      {/* right side  button*/}
            <div className="flex items-center space-x-2 lg:space-x-4">
                 <Link href="/want-to-know" className="lg:flex  hidden items-center space-x-2 px-3 py-2 text-gray-700 hover:text-blue-600 w-full text-left">
@@ -54,7 +53,7 @@ const pathname = usePathname();
                 <Button className="cursor-pointer">
                     SignUp
                 </Button>
-                <MenuIcon className="w-7 h-7 cursor-pointer lg:hidden"/>
+                <MenuIcon onClick={openNav} className="w-7 h-7 cursor-pointer lg:hidden"/>
            </div>
         </div>
       </div>
