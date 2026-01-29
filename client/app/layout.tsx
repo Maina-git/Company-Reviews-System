@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import NavWrapper from "@/components/home/Navbar/NavWrapper";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 const font = Poppins({
   weight:["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -24,6 +25,7 @@ export default function RootLayout({
         className={`${font.className} antialiased`}>
           <NavWrapper/>
         {children}
+        <Toaster position="top-center"/>
       </body>
     </html>
   );
