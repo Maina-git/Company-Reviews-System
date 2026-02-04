@@ -25,7 +25,24 @@ export const handelRequest = async <T>(
         }
         return null;
     }  finally{
-        if(setLoading){ setLoading(false); }
+        if(setLoading){ setLoading(false);}
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
