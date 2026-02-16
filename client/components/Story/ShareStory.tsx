@@ -7,6 +7,8 @@ import { handelRequest } from "../utils/apiRequest";
 import { FileText } from "lucide-react";
 import { BASE_API_URL } from "@/server";
 import { LoadingButton } from "../utils/Loadingbutton";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 type CompanyType = {
   _id: string;
@@ -16,6 +18,7 @@ type CompanyType = {
 const ShareStory = () => {
   const [loading, setLoading] = useState(false);
   const [companies, setCompanies] = useState<CompanyType[]>([]);
+  const router = useRouter
 
   const [formData, setFormData] = useState({
     vibe: "neutral",
@@ -64,6 +67,9 @@ const ShareStory = () => {
     fetchCompanies();
   }, []);
 
+
+
+
   /*submit function */
 
 const handleChange = (e:React.ChangeEvent <HTMLInputElement | HTMLTextAreaElement>)=>{
@@ -76,10 +82,30 @@ const handleChange = (e:React.ChangeEvent <HTMLInputElement | HTMLTextAreaElemen
 }
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("FORM DATA:", formData);
+  
+const payLoad = {
+  vibe:formData.vibe,
+companyName:formData.companyName,
+isAnonymous:formData.isAnonymous,
+userType:formData.userType,
+title:formData.title,
+story:formData.story,
+...(formData.isAnonymous ? {} : {name:formData.name})
+}
+
+const shareStoryReq = async () =>axios.post(`${BASE_API_URL}/reviews/create`, 
+  payLoad, {
+    withCredentials:true,
+  });
+  const result = await handelRequest(shareStoryReq, setLoading);
+
+  if(result?.data?.status === "success"){
+    toast.success("Your Story submitted successfully!");
+    router.push("/");
+    
+  }
+
   };
-
-
   return (
     <div className="min-h-screen mt-10 bg-gray-100 py-10">
       <div className="max-w-3xl mx-auto p-6 bg-white rounded-md shadow-md">
@@ -181,7 +207,7 @@ isSearchable
 
 
 <div className="text-right">
-  <LoadingButton isLoading={loading} type="submit" 
+  <LoadingButton onClick={handleSubmit} isLoading={loading} type="submit" 
   className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white font-semibold py-2
   px-6 rounded disabled:opacity-50">
 <span className="inline-flex items-center">
@@ -191,8 +217,6 @@ isSearchable
   </LoadingButton>
 
 </div>
-
-
 
         </form>
       </div>
